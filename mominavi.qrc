@@ -1,0 +1,47 @@
+<RCC>
+    <qresource prefix="/">
+        <file>BtnMapDirection.qml</file>
+        <file>BtnShrink.qml</file>
+        <file>BtnEnlarge.qml</file>
+        <file>ProgressNextCross.qml</file>
+        <file>BtnGuidance.qml</file>
+        <file>BtnPresentPosition.qml</file>
+        <file>mominavi.qml</file>
+        <file>images/10_11_bear_left_112px-Signal_C117a.svg.png</file>
+        <file>images/11_2_bear_right_112px-Signal_C117a.svg.png</file>
+        <file>images/146px-Israely_road_sign_211.svg.png</file>
+        <file>images/146px-Israely_road_sign_212.svg.png</file>
+        <file>images/200px-Black_close_x.svg.png</file>
+        <file>images/202px-Compass-icon_bb_N.svg.png</file>
+        <file>images/207px-Car_icon_top.svg.png</file>
+        <file>images/240px-Antu_file-zoom-out.svg.png</file>
+        <file>images/240px-Antu_kdenlive-zoom-large.svg.png</file>
+        <file>images/240px-Compass_icon_NE.svg.png</file>
+        <file>images/Emoji_u1f3c1.svg</file>
+        <file>images/HEB_project_flow_icon_04_checkered_flag.svg</file>
+        <file>images/MUTCD_RS-113.svg</file>
+        <file>images/posimark_r.png</file>
+        <file>images/position02.svg</file>
+        <file>images/SW_Patern_3.bmp</file>
+        <file>RouteView.qml</file>
+        <file>images/07_CANCEL.png</file>
+        <file>images/06_START-DEMO.png</file>
+        <file>images/05_CENTER-POSITION.png</file>
+        <file>images/04_WIDE.png</file>
+        <file>images/03_DETAIL.png</file>
+        <file>images/02_NORTH-UP.png</file>
+        <file>images/01_HEADING-UP.png</file>
+        <file>images/10_GOAL.png</file>
+        <file>images/09_JUNCTION.png</file>
+        <file>images/08_START.png</file>
+        <file>images/19_Shadow.png</file>
+        <file>images/18_Setting.png</file>
+        <file>images/17_Dashboard.png</file>
+        <file>images/16_Multimedia.png</file>
+        <file>images/15_Maps.png</file>
+        <file>images/14_Logo.png</file>
+        <file>images/13_Time.png</file>
+        <file>images/12_Footer.png</file>
+        <file>images/11_Header.png</file>
+    </qresource>
+</RCC>
