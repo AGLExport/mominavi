@@ -75,7 +75,7 @@ ApplicationWindow {
 	property real positionTimer_interval : 100
 	property real car_moving_distance : (car_driving_speed / 3.6) / (1000/positionTimer_interval) // Metric unit
 	property string mapbox_access_token : ""
-	property string mapbox_style_urls : "mapbox://styles/wata2ki/ckrumy7l44w3e17qlohjtv1p8"
+	property string mapbox_style_urls : "mapbox://styles/wata2ki/ckoy853ue11a117nss0uxut76"
 	property string mapbox_cache_dir : "/var/cache/momimap"
 
 	Map{
