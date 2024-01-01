@@ -24,6 +24,21 @@ int main(int argc, char *argv[])
     QObject *rootObject = engine.rootObjects().constFirst();
     QString StrEnv = qgetenv("MOMIMAP_MAPBOX_ACCESS_TOKEN");
     rootObject->setProperty("mapbox_access_token", StrEnv);
-	
+
+    QString StrEnvStyle = qgetenv("MOMIMAP_MAPBOX_STYLE");
+    if (StrEnvStyle.size() > 0) {
+        rootObject->setProperty("mapbox_style_urls", StrEnvStyle);
+    }
+
+    QString StrEnvLat = qgetenv("MOMIMAP_INITIAL_LATITUDE");
+    if (StrEnvLat.size() > 0) {
+        rootObject->setProperty("car_position_lat", StrEnvLat);
+    }
+
+    QString StrEnvLong = qgetenv("MOMIMAP_INITIAL_LONGITUDE");
+    if (StrEnvLong.size() > 0) {
+        rootObject->setProperty("car_position_lon", StrEnvLong);
+    }
+
     return app.exec();
 }
