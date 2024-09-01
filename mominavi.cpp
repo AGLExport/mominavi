@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0+
 // Copyright (C) 2021 AISIN CORPORATION
+// Copyright (C) 2024 Automotive Grade Linux
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -8,8 +9,6 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
@@ -20,15 +19,6 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
-
-    QObject *rootObject = engine.rootObjects().constFirst();
-    QString StrEnv = qgetenv("MOMIMAP_MAPBOX_ACCESS_TOKEN");
-    rootObject->setProperty("mapbox_access_token", StrEnv);
-
-    QString StrEnvStyle = qgetenv("MOMIMAP_MAPBOX_STYLE");
-    if (StrEnvStyle.size() > 0) {
-        rootObject->setProperty("mapbox_style_urls", StrEnvStyle);
-    }
 
     QString StrEnvLat = qgetenv("MOMIMAP_INITIAL_LATITUDE");
     if (StrEnvLat.size() > 0) {

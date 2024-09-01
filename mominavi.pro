@@ -1,9 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0+
 # Copyright (C) 2021 AISIN CORPORATION
+# Copyright (C) 2024 Automotive Grade Linux
 
 QT += quick positioning qml
 
-CONFIG += c++11
+CONFIG += c++17
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings

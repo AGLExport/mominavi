@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0+
 // Copyright (C) 2021 AISIN CORPORATION
+// Copyright (C) 2024 Automotive Grade Linux
 
-import QtQuick 2.0
-import QtQuick.Controls 1.5
+import QtQuick
+import QtQuick.Controls
 
 Item {
     id: btn_present_position

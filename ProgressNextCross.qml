@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0+
 // Copyright (C) 2021 AISIN CORPORATION
-import QtQuick 2.0
-import QtQuick.Controls 1.5
-import QtQuick.Controls.Styles 1.4
+// Copyright (C) 2024 Automotive Grade Linux
+import QtQuick
+import QtQuick.Controls
 
 Item {
 	id: progress_next_cross
@@ -14,7 +14,7 @@ Item {
     //   when over the ProgressBar.maximumValue/m, progress bar indicates max (same as ProgressBar.maximumValue/m)
     function setProgress(val) {
         if (val > bar.value ) {
-            bar.maximumValue = val
+            bar.to = val
         }
 
         if ( 0 < val ) {
@@ -28,16 +28,10 @@ Item {
 		id: bar
         width: 800
         height: 20
-        orientation: Qt.Horizontal
+        //orientation: Qt.Horizontal
         value: 0
-        minimumValue: 0
-        maximumValue: 800
-
-        style: ProgressBarStyle {
-            progress: Rectangle {
-                color: "green"
-            }
-        }
+        from:  0
+        to: 800
 	}
     states: [
         State {

@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0+
 // Copyright (C) 2021 AISIN CORPORATION
-import QtQuick 2.0
+// Copyright (C) 2024 Automotive Grade Linux
+
+import QtQuick
 
 Item {
     Rectangle {
@@ -29,9 +31,3 @@ Item {
         routeText.text = string
     }
 }
-
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
-##^##*/

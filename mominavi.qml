@@ -2,6 +2,7 @@
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Copyright (C) 2021 AISIN CORPORATION
+** Copyright (C) 2024 Automotive Grade Linux
 ** Contact: https://www.qt.io/licensing/
 **
 ** SPDX-License-Identifier: BSD-3-Clause-Clear
@@ -50,11 +51,11 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-import QtQuick 2.12
-import QtQuick.Layouts 1.12
-import QtQuick.Controls 2.12
-import QtLocation 5.9
-import QtPositioning 5.6
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtLocation
+import QtPositioning
 
 
 ApplicationWindow {
@@ -74,9 +75,11 @@ ApplicationWindow {
 	property real car_accumulated_distance : 0
 	property real positionTimer_interval : 100
 	property real car_moving_distance : (car_driving_speed / 3.6) / (1000/positionTimer_interval) // Metric unit
-	property string mapbox_access_token : ""
-	property string mapbox_style_urls : "mapbox://styles/wata2ki/ckoy853ue11a117nss0uxut76"
-	property string mapbox_cache_dir : "/var/cache/momimap"
+
+    Plugin {
+        id: mapPlugin
+        name: "osm"
+    }
 
 	Map{
 		id: map
@@ -100,12 +103,7 @@ ApplicationWindow {
 
 		width: parent.width
 		height: parent.height
-		plugin: Plugin {
-			name: "mapboxgl"
-			PluginParameter { name: "mapboxgl.access_token"; value: mapbox_access_token }
-			PluginParameter { name: "mapboxgl.mapping.additional_style_urls"; value: mapbox_style_urls }
-			PluginParameter { name: "mapboxgl.mapping.cache.directory"; value: mapbox_cache_dir }
-		}
+		plugin: mapPlugin
 		center: QtPositioning.coordinate(car_position_lat, car_position_lon)
 		zoomLevel: default_zoom_level
 		bearing: 0
@@ -120,7 +118,7 @@ ApplicationWindow {
 			}
 			onLocationsChanged:
 			{
-				if (count == 1) {
+                if (count === 1) {
 					map.center.latitude = get(0).coordinate.latitude
 					map.center.longitude = get(0).coordinate.longitude
 				}
@@ -256,11 +254,8 @@ ApplicationWindow {
 			id: routeModel
 			objectName: "routeModel"
 			plugin : Plugin {
-				name: "mapbox"
-				PluginParameter { name: "mapbox.access_token";
-					value: mapbox_access_token
-				}
-			}
+                name: "osm"
+            }
 			query:  RouteQuery {
 				id: routeQuery
 			}
@@ -446,37 +441,53 @@ ApplicationWindow {
 			acceptedButtons: Qt.LeftButton | Qt.RightButton
 			
 			onPressed : {
-				map.lastX = mouse.x
-				map.lastY = mouse.y
-				map.pressX = mouse.x
-				map.pressY = mouse.y
-				lastCoordinate = map.toCoordinate(Qt.point(mouse.x, mouse.y))
+                map.lastX = mouseX
+                map.lastY = mouseY
+                map.pressX = mouseX
+                map.pressY = mouseY
+                lastCoordinate = map.toCoordinate(Qt.point(mouseX, mouseY))
 			}
 			
 			onPositionChanged: {
-				if (mouse.button === Qt.LeftButton) {
-					map.lastX = mouse.x
-					map.lastY = mouse.y
-				}
+                if ((pressedButtons & Qt.LeftButton) === true) {
+                    map.lastX = mouseX
+                    map.lastY = mouseY
+                }
 			}
 			
 			onPressAndHold:{
 				if((btn_guidance.state !== "onGuide") && (btn_guidance.state !== "Routing"))
 				{
-					if (Math.abs(map.pressX - mouse.x ) < map.jitterThreshold
-							&& Math.abs(map.pressY - mouse.y ) < map.jitterThreshold) {
+                    if (Math.abs(map.pressX - mouseX ) < map.jitterThreshold
+                            && Math.abs(map.pressY - mouseY ) < map.jitterThreshold) {
 						map.addDestination(lastCoordinate)
 					}
 				}
 
 			}
-		}
-		gesture.onFlickStarted: {
-			btn_present_position.state = "Optional"
-		}
-		gesture.onPanStarted: {
-			btn_present_position.state = "Optional"
-		}
+        }
+        PinchHandler {
+            id: pinch
+            target: null
+            onActiveChanged: if (active) {
+                map.startCentroid = map.toCoordinate(pinch.centroid.position, false)
+            }
+            onScaleChanged: (delta) => {
+                map.zoomLevel += Math.log2(delta)
+                map.alignCoordinateToPoint(map.startCentroid, pinch.centroid.position)
+            }
+            onRotationChanged: (delta) => {
+                map.bearing -= delta
+                map.alignCoordinateToPoint(map.startCentroid, pinch.centroid.position)
+            }
+            grabPermissions: PointerHandler.TakeOverForbidden
+        }
+        DragHandler {
+            id: drag
+            target: null
+            onTranslationChanged: (delta) => map.pan(-delta.x, -delta.y)
+        }
+
 		function updatePositon()
 		{
 			if(pathcounter <= routeModel.get(0).path.length - 1){

@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0+
 // Copyright (C) 2021 AISIN CORPORATION
+// Copyright (C) 2024 Automotive Grade Linux
 
-import QtQuick 2.0
-import QtQuick.Controls 1.5
+import QtQuick
+import QtQuick.Controls
 
 Item {
     Image {
@@ -19,7 +20,7 @@ Item {
         id: btn_map_direction
         width: 100
         height: 100
-        iconSource: ""
+        icon.source: ""
         opacity: 0
         visible: true
         clip: false
