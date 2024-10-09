@@ -20,6 +20,8 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
+    QObject *rootObject = engine.rootObjects().constFirst();
+
     QString StrEnvLat = qgetenv("MOMIMAP_INITIAL_LATITUDE");
     if (StrEnvLat.size() > 0) {
         rootObject->setProperty("car_position_lat", StrEnvLat);
