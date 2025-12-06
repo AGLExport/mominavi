@@ -82,7 +82,7 @@ ApplicationWindow {
 
 		PluginParameter {
 			name: "maplibre.map.styles"
-			value: "https://demotiles.maplibre.org/style.json"
+			value: "https://tile.openstreetmap.jp/styles/osm-bright/style.json"
 		}
 	}
 
