@@ -77,9 +77,14 @@ ApplicationWindow {
 	property real car_moving_distance : (car_driving_speed / 3.6) / (1000/positionTimer_interval) // Metric unit
 
     Plugin {
-        id: mapPlugin
-        name: "osm"
-    }
+		id: mapPlugin
+		name: "maplibre"  // Use MapLibre plugin
+
+		PluginParameter {
+			name: "maplibre.map.styles"
+			value: "https://demotiles.maplibre.org/style.json"
+		}
+	}
 
 	Map{
 		id: map
