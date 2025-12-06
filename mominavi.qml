@@ -67,6 +67,7 @@ ApplicationWindow {
 
     property real car_position_lat: 36.129
 	property real car_position_lon: -115.1533
+	property string maplibre_map_style : "https://tile.openstreetmap.jp/styles/openmaptiles/style.json"
 	property real car_direction: 0  //North
 	property real car_driving_speed: 60  // set Km/h
 	property bool st_heading_up: false
@@ -77,9 +78,14 @@ ApplicationWindow {
 	property real car_moving_distance : (car_driving_speed / 3.6) / (1000/positionTimer_interval) // Metric unit
 
     Plugin {
-        id: mapPlugin
-        name: "osm"
-    }
+		id: mapPlugin
+		name: "maplibre"  // Use MapLibre plugin
+
+		PluginParameter {
+			name: "maplibre.map.styles"
+			value: maplibre_map_style
+		}
+	}
 
 	Map{
 		id: map
@@ -94,6 +100,7 @@ ApplicationWindow {
 		property variant currentpostion : QtPositioning.coordinate(car_position_lat, car_position_lon)
 		property int last_segmentcounter : -1
         property string latestRouteText : ""
+        property geoCoordinate startCentroid
 
 		signal qmlSignalRouteInfo(double srt_lat,double srt_lon,double end_lat,double end_lon);
 		signal qmlSignalPosInfo(double lat,double lon,double drc,double dst);
@@ -480,7 +487,6 @@ ApplicationWindow {
                 map.bearing -= delta
                 map.alignCoordinateToPoint(map.startCentroid, pinch.centroid.position)
             }
-            grabPermissions: PointerHandler.TakeOverForbidden
         }
         DragHandler {
             id: drag
