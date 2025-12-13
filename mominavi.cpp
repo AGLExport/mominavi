@@ -5,7 +5,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-
+#incluse <stdio.h>
 
 int main(int argc, char *argv[])
 {
@@ -33,9 +33,12 @@ int main(int argc, char *argv[])
     }
 
     QString StrEnvStyle = qgetenv("MAPLIBRE_MAP_STYLE");
-    if (StrEnvStyle.size() > 0) {
+	fprintf(stderr, "MAPLIBRE_MAP_STYLE=%s\n", StrEnvStyle.toUtf8().data());
+	if (StrEnvStyle.size() > 0) {
         rootObject->setProperty("maplibre_map_style", StrEnvStyle);
-    }
+		fprintf(stderr, "set MAPLIBRE_MAP_STYLE to maplibre_map_style", StrEnvStyle.toUtf8().data());
+	}
+
 
     return app.exec();
 }
