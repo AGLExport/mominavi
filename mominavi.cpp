@@ -5,7 +5,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#incluse <stdio.h>
+#include <stdio.h>
 
 int main(int argc, char *argv[])
 {
