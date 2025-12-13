@@ -67,6 +67,7 @@ ApplicationWindow {
 
     property real car_position_lat: 36.129
 	property real car_position_lon: -115.1533
+	property string maplibre_map_style : "https://tile.openstreetmap.jp/styles/openmaptiles/style.json"
 	property real car_direction: 0  //North
 	property real car_driving_speed: 60  // set Km/h
 	property bool st_heading_up: false
@@ -82,7 +83,7 @@ ApplicationWindow {
 
 		PluginParameter {
 			name: "maplibre.map.styles"
-			value: "https://tile.openstreetmap.jp/styles/osm-bright/style.json"
+			value: maplibre_map_style
 		}
 	}
 

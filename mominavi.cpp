@@ -32,5 +32,10 @@ int main(int argc, char *argv[])
         rootObject->setProperty("car_position_lon", StrEnvLong);
     }
 
+    QString StrEnvStyle = qgetenv("MAPLIBRE_MAP_STYLE");
+    if (StrEnvStyle.size() > 0) {
+        rootObject->setProperty("maplibre_map_style", StrEnvStyle);
+    }
+
     return app.exec();
 }
