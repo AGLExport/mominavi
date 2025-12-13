@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 	fprintf(stderr, "MAPLIBRE_MAP_STYLE=%s\n", StrEnvStyle.toUtf8().data());
 	if (StrEnvStyle.size() > 0) {
         rootObject->setProperty("maplibre_map_style", StrEnvStyle);
-		fprintf(stderr, "set MAPLIBRE_MAP_STYLE to maplibre_map_style", StrEnvStyle.toUtf8().data());
+		fprintf(stderr, "set MAPLIBRE_MAP_STYLE to maplibre_map_style\n");
 	}
 
 
