@@ -65,16 +65,16 @@ ApplicationWindow {
     height: 1080
     title: qsTr("mominavi")
 
-    property real car_position_lat: 36.129
-	property real car_position_lon: -115.1533
-	property string maplibre_map_style : "https://tile.openstreetmap.jp/styles/openmaptiles/style.json"
+    property real car_position_lat: momiConfig.getStartLatitude()
+	property real car_position_lon: momiConfig.getStartLongitude()
+	property string maplibre_map_style : momiConfig.getMaplibreStyle()
 	property real car_direction: 0  //North
-	property real car_driving_speed: 60  // set Km/h
+	property real car_driving_speed: momiConfig.getCarSpeed()
 	property bool st_heading_up: false
     property real default_zoom_level : 18
 	property real default_car_direction : 180
 	property real car_accumulated_distance : 0
-	property real positionTimer_interval : 100
+	property real positionTimer_interval : momiConfig.getUpdateInterval()
 	property real car_moving_distance : (car_driving_speed / 3.6) / (1000/positionTimer_interval) // Metric unit
 
     Plugin {

@@ -5,12 +5,16 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-
+#include "config.hpp"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
+
+    MomiConfig momiConfig;
+    QQmlContext *context = engine.rootContext();
+    context->setContextProperty("momiConfig", &momiConfig);
 
     const QUrl url(QStringLiteral("qrc:/mominavi.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -19,18 +23,6 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
-
-    QObject *rootObject = engine.rootObjects().constFirst();
-
-    QString StrEnvLat = qgetenv("MOMIMAP_INITIAL_LATITUDE");
-    if (StrEnvLat.size() > 0) {
-        rootObject->setProperty("car_position_lat", StrEnvLat);
-    }
-
-    QString StrEnvLong = qgetenv("MOMIMAP_INITIAL_LONGITUDE");
-    if (StrEnvLong.size() > 0) {
-        rootObject->setProperty("car_position_lon", StrEnvLong);
-    }
 
     return app.exec();
 }
